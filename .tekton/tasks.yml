@@ -1,0 +1,53 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: cleanup
+spec:
+  description: >-
+    Clean up workspace and temporary files after pipeline execution
+  workspaces:
+    - name: source
+  steps:
+    - name: cleanup
+      image: alpine:latest
+      script: |
+        #!/bin/sh
+        echo "Starting cleanup task..."
+        echo "Removing temporary files..."
+        rm -rf /workspace/source/__pycache__
+        rm -rf /workspace/source/onlinecourse_app/__pycache__
+        rm -rf /workspace/source/onlinecourse/__pycache__
+        find /workspace/source -name "*.pyc" -delete
+        find /workspace/source -name ".pytest_cache" -type d -exec rm -rf {} + 2>/dev/null || true
+        echo "Cleanup completed successfully."
+        echo "Remaining workspace contents:"
+        ls -la /workspace/source/
+
+---
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: nose-test
+spec:
+  description: >-
+    Run unit tests using nose test framework
+  workspaces:
+    - name: source
+  params:
+    - name: args
+      type: array
+      default:
+        - onlinecourse_app/tests.py
+      description: Arguments to pass to nosetests
+  steps:
+    - name: run-nose-tests
+      image: python:3.11-slim
+      script: |
+        #!/bin/sh
+        set -e
+        echo "Installing dependencies..."
+        pip install --quiet -r /workspace/source/requirements.txt
+        echo "Running nose tests..."
+        cd /workspace/source
+        nosetests $(params.args) --verbosity=2
+        echo "All nose tests completed."

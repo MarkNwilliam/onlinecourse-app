@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group  # noqa: F401
 from .models import Course, Lesson, Question, Choice, Submission
 
 
