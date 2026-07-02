@@ -1,0 +1,46 @@
+=== GitHub Actions Workflow: Django CI/CD Pipeline ===
+=== Run #5 | Commit: a58cc0d | Branch: main ===
+
+Step 1/6: Set up Python 3.11
+  -> actions/setup-python@v5
+  -> Python 3.11.10 configured
+
+Step 2/6: Install dependencies
+
+[notice] A new release of pip is available: 24.3.1 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+
+Step 3/6: Lint with flake8
+0
+  0 linting errors found
+
+Step 4/6: Run unit tests with pytest
+============================= test session starts ==============================
+platform darwin -- Python 3.11.10, pytest-8.3.4, pluggy-1.5.0 -- /Users/imac/.pyenv/versions/3.11.10/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.15, settings: onlinecourse.settings (from ini)
+rootdir: /Users/imac/djangoproject
+configfile: pytest.ini
+plugins: docker-3.1.2, django-4.12.0, Faker-40.23.0, anyio-4.6.2.post1
+collecting ... collected 6 items
+
+onlinecourse_app/tests.py::CourseModelTest::test_course_creation PASSED  [ 16%]
+onlinecourse_app/tests.py::CourseModelTest::test_course_str_method PASSED [ 33%]
+onlinecourse_app/tests.py::LessonModelTest::test_lesson_creation PASSED  [ 50%]
+onlinecourse_app/tests.py::QuestionModelTest::test_question_creation PASSED [ 66%]
+onlinecourse_app/tests.py::ChoiceModelTest::test_choice_creation PASSED  [ 83%]
+onlinecourse_app/tests.py::SubmissionModelTest::test_submission_creation PASSED [100%]
+
+============================== 6 passed in 1.37s ===============================
+
+Step 5/6: Run Django system check
+System check identified no issues (0 silenced).
+
+Step 6/6: Post-job cleanup
+  -> Cache saved: pip
+  -> Workspace cleaned
+
+=====================================
+Pipeline status: SUCCESS
+All 6 steps completed successfully.
+=====================================
