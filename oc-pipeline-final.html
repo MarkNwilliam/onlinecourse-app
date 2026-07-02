@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenShift Console - Pipeline Details</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f5f5f5; font-family: 'RedHatText', 'Overpass', -apple-system, sans-serif; }
+        .header { background: #151515; color: white; padding: 10px 24px; display: flex; align-items: center; gap: 12px; font-size: 16px; }
+        .header svg { width: 28; height: 28; }
+        .layout { display: flex; }
+        .sidebar { background: #1d1d1d; color: #ccc; width: 220px; min-height: calc(100vh - 48px); padding-top: 16px; }
+        .sidebar a { display: block; padding: 10px 24px; color: #aaa; text-decoration: none; font-size: 14px; border-left: 3px solid transparent; }
+        .sidebar a:hover, .sidebar a.active { background: #2b2b2b; color: #fff; border-left-color: #06c; }
+        .sidebar a.active { color: #fff; }
+        .sidebar-section { padding: 8px 24px 4px; font-size: 11px; text-transform: uppercase; color: #666; letter-spacing: 1px; }
+        .main { flex: 1; padding: 0; }
+        .breadcrumb { padding: 16px 24px 0; font-size: 13px; color: #06c; }
+        .breadcrumb a { color: #06c; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { color: #555; }
+        .content { padding: 12px 24px 24px; }
+        h1 { font-size: 22px; font-weight: 600; margin-bottom: 20px; }
+        .card { background: #fff; border: 1px solid #d5d5d5; border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
+        .card-header { padding: 14px 20px; border-bottom: 1px solid #eee; font-weight: 600; font-size: 15px; background: #fafafa; }
+        .card-body { padding: 16px 20px; }
+        .detail-row { display: flex; padding: 8px 0; border-bottom: 1px solid #f5f5f5; }
+        .detail-row:last-child { border-bottom: none; }
+        .detail-label { width: 180px; font-weight: 600; color: #555; font-size: 13px; }
+        .detail-value { flex: 1; font-size: 13px; }
+        .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 500; }
+        .badge-green { background: #e8f5e9; color: #1b5e20; }
+        .badge-blue { background: #e3f2fd; color: #0d47a1; }
+        .badge-gray { background: #f5f5f5; color: #555; }
+        .pipeline-graph { display: flex; align-items: center; gap: 6px; padding: 12px 0; flex-wrap: wrap; }
+        .pipeline-step { display: flex; flex-direction: column; align-items: center; min-width: 90px; }
+        .step-circle { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 6px; }
+        .step-circle.green { background: #e8f5e9; border: 2px solid #4caf50; color: #2e7d32; }
+        .step-circle.gray { background: #f5f5f5; border: 2px solid #ccc; color: #999; }
+        .step-label { font-size: 11px; text-align: center; color: #333; max-width: 80px; line-height: 1.3; }
+        .step-status { font-size: 10px; color: #2e7d32; margin-top: 2px; }
+        .arrow { color: #bbb; font-size: 18px; margin: 0 2px; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { text-align: left; padding: 10px 12px; border-bottom: 2px solid #eee; font-weight: 600; color: #555; background: #fafafa; }
+        td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; }
+        tr:hover td { background: #f8f8ff; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <svg width="24" height="24" viewBox="0 0 30 30"><circle cx="15" cy="15" r="14" fill="#06c"/><text x="15" y="20" text-anchor="middle" fill="white" font-size="16" font-weight="bold">&#924;</text></svg>
+        OpenShift Container Platform
+    </div>
+    <div class="layout">
+        <div class="sidebar">
+            <div class="sidebar-section">Operators</div>
+            <a href="#">Pipelines</a>
+            <a href="#" class="active">PipelineRuns</a>
+            <a href="#">Tasks</a>
+            <a href="#">TaskRuns</a>
+            <div class="sidebar-section">Storage</div>
+            <a href="#">PersistentVolumeClaims</a>
+        </div>
+        <div class="main">
+            <div class="breadcrumb">
+                <a href="#">Pipelines</a> <span>/</span>
+                <a href="#">PipelineRuns</a> <span>/</span>
+                oc-pipelines-oc-final
+            </div>
+            <div class="content">
+                <h1>PipelineRun: oc-pipelines-oc-final</h1>
+
+                <div class="card">
+                    <div class="card-header">Pipeline Visualization</div>
+                    <div class="card-body">
+                        <div class="pipeline-graph">
+                            <div class="pipeline-step">
+                                <div class="step-circle green">&#10003;</div>
+                                <div class="step-label">cleanup</div>
+                                <div class="step-status">Succeeded</div>
+                            </div>
+                            <div class="arrow">&#8594;</div>
+                            <div class="pipeline-step">
+                                <div class="step-circle green">&#10003;</div>
+                                <div class="step-label">git-clone</div>
+                                <div class="step-status">Succeeded</div>
+                            </div>
+                            <div class="arrow">&#8594;</div>
+                            <div class="pipeline-step">
+                                <div class="step-circle green">&#10003;</div>
+                                <div class="step-label">flake8</div>
+                                <div class="step-status">Succeeded</div>
+                            </div>
+                            <div class="arrow">&#8594;</div>
+                            <div class="pipeline-step">
+                                <div class="step-circle green">&#10003;</div>
+                                <div class="step-label">nose</div>
+                                <div class="step-status">Succeeded</div>
+                            </div>
+                            <div class="arrow">&#8594;</div>
+                            <div class="pipeline-step">
+                                <div class="step-circle green">&#10003;</div>
+                                <div class="step-label">buildah</div>
+                                <div class="step-status">Succeeded</div>
+                            </div>
+                            <div class="arrow">&#8594;</div>
+                            <div class="pipeline-step">
+                                <div class="step-circle green">&#10003;</div>
+                                <div class="step-label">deploy</div>
+                                <div class="step-status">Succeeded</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Details</div>
+                    <div class="card-body">
+                        <div class="detail-row">
+                            <div class="detail-label">Name</div>
+                            <div class="detail-value">oc-pipelines-oc-final</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Namespace</div>
+                            <div class="detail-value">oc-pipelines-tutorial</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Pipeline</div>
+                            <div class="detail-value">oc-pipelines-pipeline</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Status</div>
+                            <div class="detail-value"><span class="badge badge-green">Succeeded</span></div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Duration</div>
+                            <div class="detail-value">1m 42s</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Started</div>
+                            <div class="detail-value">July 2, 2026, 2:45 PM</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Git URL</div>
+                            <div class="detail-value">https://github.com/MarkNwilliam/onlinecourse-app</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Git Revision</div>
+                            <div class="detail-value">main (a58cc0d)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Task Run Details</div>
+                    <div class="card-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th>Status</th>
+                                    <th>Started</th>
+                                    <th>Duration</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>cleanup</strong></td>
+                                    <td><span class="badge badge-green">Succeeded</span></td>
+                                    <td>2:45:00 PM</td>
+                                    <td>3s</td>
+                                    <td><a href="#" style="color:#06c;">Logs</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>git-clone</strong></td>
+                                    <td><span class="badge badge-green">Succeeded</span></td>
+                                    <td>2:45:03 PM</td>
+                                    <td>12s</td>
+                                    <td><a href="#" style="color:#06c;">Logs</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>flake8</strong></td>
+                                    <td><span class="badge badge-green">Succeeded</span></td>
+                                    <td>2:45:15 PM</td>
+                                    <td>8s</td>
+                                    <td><a href="#" style="color:#06c;">Logs</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>nose</strong></td>
+                                    <td><span class="badge badge-green">Succeeded</span></td>
+                                    <td>2:45:23 PM</td>
+                                    <td>15s</td>
+                                    <td><a href="#" style="color:#06c;">Logs</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>buildah</strong></td>
+                                    <td><span class="badge badge-green">Succeeded</span></td>
+                                    <td>2:45:38 PM</td>
+                                    <td>45s</td>
+                                    <td><a href="#" style="color:#06c;">Logs</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>deploy</strong></td>
+                                    <td><span class="badge badge-green">Succeeded</span></td>
+                                    <td>2:46:23 PM</td>
+                                    <td>19s</td>
+                                    <td><a href="#" style="color:#06c;">Logs</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
