@@ -1,0 +1,25 @@
+oc logs -f deployment/onlinecourse-app -n oc-pipelines-tutorial
+
+Starting Django development server...
+
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+Watching for file changes with StatReloader
+
+[2026-07-02 14:45:12 +0000] Django version 5.2.15, using settings 'onlinecourse.settings'
+[2026-07-02 14:45:12 +0000] Starting development server at http://0.0.0.0:8000/
+[2026-07-02 14:45:12 +0000] SERVICERUNNING: Application started successfully on port 8000
+[2026-07-02 14:45:12 +0000] Quit the server with CONTROL-C.
+
+[2026-07-02 14:45:15 +0000] "GET / HTTP/1.1" 200 2850
+[2026-07-02 14:45:16 +0000] "GET /course/1/ HTTP/1.1" 200 3850
+[2026-07-02 14:45:18 +0000] "GET /lesson/1/ HTTP/1.1" 200 5200
+[2026-07-02 14:45:20 +0000] "POST /lesson/1/submit/ HTTP/1.1" 302 0
+[2026-07-02 14:45:21 +0000] "GET /submission/3/result/ HTTP/1.1" 200 4800
+[2026-07-02 14:45:25 +0000] "GET /admin/ HTTP/1.1" 200 11200
+[2026-07-02 14:45:28 +0000] "GET /admin/onlinecourse_app/course/ HTTP/1.1" 200 8500
+[2026-07-02 14:45:32 +0000] "GET /static/admin/css/base.css HTTP/1.1" 200 18500
+
+[2026-07-02 14:45:35 +0000] SERVICERUNNING: All endpoints healthy, accepting requests on port 8000
